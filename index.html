@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Bhumika ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb);
+  color: white;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  margin-top: 100px;
+}
+
+h1 {
+  font-size: 40px;
+}
+
+p {
+  font-size: 20px;
+  max-width: 600px;
+  margin: auto;
+  line-height: 1.6;
+}
+
+button {
+  padding: 15px 30px;
+  font-size: 18px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  margin: 15px;
+  transition: 0.3s;
+}
+
+#yesBtn {
+  background-color: #ff4d6d;
+  color: white;
+}
+
+#noBtn {
+  background-color: white;
+  color: #ff4d6d;
+  position: absolute;
+}
+
+.photo {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid white;
+  margin-top: 20px;
+}
+
+.hidden {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="canvas"></canvas>
+
+<div class="container" id="questionBox">
+  <h1>Bhumika Magar ❤️</h1>
+  <p>
+    Bhumika, since we started talking, everything feels more beautiful.
+    I don’t know when it happened…
+    but I truly fell in love with you.
+  </p>
+
+  <h2>Will you be mine forever? 💍</h2>
+
+  <button id="yesBtn">YES 💕</button>
+  <button id="noBtn">NO 😅</button>
+</div>
+
+<div class="container hidden" id="loveBox">
+  <h1>You Said YES 😭❤️</h1>
+
+  <img src="her.jpg" class="photo">
+
+  <p>
+    Bhumika Magar,<br><br>
+    From now until my last breath, I choose you.<br><br>
+    I will respect you, support you, and stand beside you.<br>
+    I will celebrate your happiness and protect your heart.<br><br>
+    Not just today…<br>
+    Not just for a season…<br>
+    But for my whole life. ❤️<br><br>
+    — Yours forever 💖
+  </p>
+</div>
+
+<script>
+// Move NO button
+const noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseover", () => {
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 50);
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+});
+
+// YES button
+document.getElementById("yesBtn").addEventListener("click", () => {
+  document.getElementById("questionBox").classList.add("hidden");
+  document.getElementById("loveBox").classList.remove("hidden");
+  startHearts();
+});
+
+// Heart animation
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let hearts = [];
+
+function createHeart() {
+  return {
+    x: Math.random() * canvas.width,
+    y: canvas.height,
+    size: Math.random() * 20 + 10,
+    speed: Math.random() * 2 + 1
+  };
+}
+
+function drawHeart(x, y, size) {
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+  ctx.bezierCurveTo(x - size, y - size, x - size * 2, y + size / 2, x, y + size);
+  ctx.bezierCurveTo(x + size * 2, y + size / 2, x + size, y - size, x, y);
+  ctx.fillStyle = "white";
+  ctx.fill();
+}
+
+function startHearts() {
+  setInterval(() => {
+    hearts.push(createHeart());
+  }, 200);
+
+  setInterval(() => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    hearts.forEach((heart, index) => {
+      heart.y -= heart.speed;
+      drawHeart(heart.x, heart.y, heart.size);
+      if (heart.y < 0) hearts.splice(index, 1);
+    });
+  }, 30);
+}
+</script>
+
+</body>
+</html>
